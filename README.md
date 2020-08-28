@@ -48,14 +48,14 @@ This video uploader has three endpoints to manipulating videos
     
         Set under the Body tag the params to `form-data`
         
-    The key have to `file` and the value have to a video file with `mp4 or webm` format
+        The key have to `file` and the value have to a video file with `mp4 or webm` format
     
     For example: http://127.0.0.1/video-uploader/web/api/video/upload
     - In HTML
     
         Set the form `enctype` attribute to `"multipart/form-data"`
         
-    Add an input tag inside the form and set the `type` and `name` attribute to `"file"`
+        Add an input tag inside the form and set the `type` and `name` attribute to `"file"`
     
     > Note: The response is the uploaded video's id
     
