@@ -50,7 +50,7 @@ This video uploader has three endpoints to manipulating videos
         
         The key have to `file` and the value have to a video file with `mp4 or webm` format
     
-    For example: http://127.0.0.1/video-uploader/web/api/video/upload
+        For example: http://127.0.0.1/video-uploader/web/api/video/upload
     - In HTML
     
         Set the form `enctype` attribute to `"multipart/form-data"`
