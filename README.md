@@ -52,7 +52,9 @@ This video uploader has three endpoints to manipulating videos
         Set the form `enctype` attribute to `"multipart/form-data"`
     Add an input tag inside the form and set the `type` and `name` attribute to `"file"`
     > Note: The response is the uploaded video's id
+    
     > Note: If the video's type is invalid or the file is not video the response is error: 400 Bad request
+    
     > Note: If the video could not be uploaded or saved the response is error: 500 Internal server error
 #### "/video/delete": deletes the video in all qualities
   - Method: DELETE
@@ -61,6 +63,7 @@ This video uploader has three endpoints to manipulating videos
 
     For example: http://127.0.0.1/video-uploader/web/api/video/delete?v=pCq08PgrZTK
     > Note: The response is 200 OK
+    
     > Note: If the video not found the response is: 404 Not found
 
 ## Commands
@@ -70,6 +73,7 @@ You can convert the video to `360p or 720p`.
 - Navigate to the `project` folder
 - Run command: `php yii video/convert`
     > The requested param is a video id
+    
     > For example `php yii video/convert JjfGDio4mnp`
 
 ## Author
