@@ -53,7 +53,7 @@ class VideoController extends Controller
             $video->extension = $extension;
             $video->status = Video::UNDER_PROCESS;
 
-            if (!$file->saveAs($this->uploadPath . $file->name . '.' . $extension) && !$video->save()) {
+            if ($file->saveAs($this->uploadPath . $file->name . '.' . $extension) && $video->save()) {
                 return ['id' => $video->id];
             }
         }
