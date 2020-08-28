@@ -18,7 +18,7 @@ This is a PHP video uploader project in Yii2 framework.
 - Make a database called `videouploader`
 - Run command `php yii migrate `
 
-> You can skip these steps by import the SQL file from the repository
+> You can skip the last two steps by import the SQL file from the repository
 
 > Now you have some sample video with converted qualities.
 
