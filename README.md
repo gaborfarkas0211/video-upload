@@ -35,7 +35,7 @@ This video uploader has three endpoints to manipulating videos
     - 'v': this is the video ID
     - 'quality': you can choose quality (360 or 720), if you don't add this param the default quality is 720
     
-    For example: http://127.0.0.1/video-uploader/web/api`/video?v=pCq08PgrZTK&quality=360`
+    For example: http://127.0.0.1/video-uploader/web/api/video?v=pCq08PgrZTK&quality=360
     > Note: The response is a video link of the selected quality
     > Note: If the video is under process or the video is not available in the selected quality the response is the default uploaded video
     > Note: If the video not found the response is error: 404 Not found
@@ -45,7 +45,7 @@ This video uploader has three endpoints to manipulating videos
     - In Postman
         Set under the Body tag the params to `form-data`
     The key have to `file` and the value have to a video file with `mp4 or webm` format
-    For example: http://127.0.0.1/video-uploader/web/api`/video/upload`
+    For example: http://127.0.0.1/video-uploader/web/api/video/upload
     - In HTML
         Set the form `enctype` attribute to `"multipart/form-data"`
     Add an input tag inside the form and set the `type` and `name` attribute to `"file"`
@@ -57,7 +57,7 @@ This video uploader has three endpoints to manipulating videos
   - Query parameter:
     - 'v': this is the video ID
 
-    For example: http://127.0.0.1/video-uploader/web/api`/video/delete?v=pCq08PgrZTK`
+    For example: http://127.0.0.1/video-uploader/web/api/video/delete?v=pCq08PgrZTK
     > Note: The response is 200 OK
     > Note: If the video not found the response is: 404 Not found
 
