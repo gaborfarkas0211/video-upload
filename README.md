@@ -37,7 +37,9 @@ This video uploader has three endpoints to manipulating videos
     
     For example: http://127.0.0.1/video-uploader/web/api/video?v=pCq08PgrZTK&quality=360
     > Note: The response is a video link of the selected quality
+    
     > Note: If the video is under process or the video is not available in the selected quality the response is the default uploaded video
+    
     > Note: If the video not found the response is error: 404 Not found
 #### "/video/upload"
   - Method: POST
