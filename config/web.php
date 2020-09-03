@@ -63,14 +63,6 @@ $config = [
     'modules' => [
         'api' => [
             'class' => 'app\modules\api\Module',
-            'components' => [
-                'response' => [
-                    'class' => 'yii\filters\ContentNegotiator',
-                    'formats' => [
-                        'application/json' => \yii\web\Response::FORMAT_JSON,
-                    ],
-                ]
-            ]
         ]
     ],
     'params' => $params,
