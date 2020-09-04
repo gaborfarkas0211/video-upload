@@ -7,6 +7,7 @@ use app\modules\api\components\RestController;
 use Yii;
 use yii\helpers\Url;
 use yii\web\HttpException;
+use yii\web\BadRequestHttpException;
 use yii\web\NotFoundHttpException;
 use yii\web\UploadedFile;
 
@@ -42,7 +43,7 @@ class VideoController extends RestController
     {
         if ($file = UploadedFile::getInstanceByName('file')) {
             if (!Video::typeValidation($file->type)) {
-                throw new HttpException(400, 'Invalid file type.');
+                throw new BadRequestHttpException('Invalid file type.');
             }
 
             $extension = $file->getExtension();
