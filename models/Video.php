@@ -52,21 +52,7 @@ class Video extends \yii\db\ActiveRecord
             'quality' => 'Quality',
         ];
     }
-
-    public static function createUniqueString()
-    {
-        return substr(
-            str_shuffle("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"),
-            0,
-            1
-        ) .
-            substr(
-                str_shuffle("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"),
-                0,
-                10
-            );
-    }
-
+    
     public static function typeValidation($type)
     {
         return $type == 'video/mp4' || $type == 'video/webm';

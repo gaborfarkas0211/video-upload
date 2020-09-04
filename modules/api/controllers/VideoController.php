@@ -46,7 +46,7 @@ class VideoController extends RestController
             }
 
             $extension = $file->getExtension();
-            $file->name = Video::createUniqueString();
+            $file->name = Yii::$app->security->generateRandomString(11);
 
             $video = new Video();
             $video->id = $file->name;
