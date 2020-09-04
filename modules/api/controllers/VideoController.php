@@ -6,9 +6,9 @@ use app\models\Video;
 use app\modules\api\components\RestController;
 use Yii;
 use yii\helpers\Url;
-use yii\web\HttpException;
 use yii\web\BadRequestHttpException;
 use yii\web\NotFoundHttpException;
+use yii\web\ServerErrorHttpException;
 use yii\web\UploadedFile;
 
 class VideoController extends RestController
@@ -58,7 +58,7 @@ class VideoController extends RestController
                 return ['id' => $video->id];
             }
         }
-        throw new HttpException(500, 'The video could not be uploaded.');
+        throw new ServerErrorHttpException('The video could not be uploaded.');
     }
 
     public function actionDelete($v)
