@@ -3,14 +3,14 @@
 namespace app\modules\api\controllers;
 
 use app\models\Video;
+use app\modules\api\components\RestController;
 use Yii;
 use yii\helpers\Url;
-use yii\rest\Controller;
 use yii\web\HttpException;
 use yii\web\NotFoundHttpException;
 use yii\web\UploadedFile;
 
-class VideoController extends Controller
+class VideoController extends RestController
 {
 
     public $uploadPath = 'uploads/';
