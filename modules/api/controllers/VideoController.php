@@ -54,8 +54,12 @@ class VideoController extends RestController
             $video->extension = $extension;
             $video->status = Video::UNDER_PROCESS;
 
-            if ($file->saveAs($this->uploadPath . $file->name . '.' . $extension) && $video->save()) {
-                return ['id' => $video->id];
+            $fileName = $file->name . '.' . $extension;
+            if ($file->saveAs($this->uploadPath . $fileName)) {
+                if ($video->save()) {
+                    return ['id' => $video->id];
+                }
+                self::delete($this->uploadPath . $fileName);
             }
         }
         throw new ServerErrorHttpException('The video could not be uploaded.');
