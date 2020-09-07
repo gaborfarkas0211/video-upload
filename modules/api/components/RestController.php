@@ -3,15 +3,19 @@
 namespace app\modules\api\components;
 
 use Yii;
+use yii\filters\AccessControl;
+use yii\filters\auth\HttpHeaderAuth;
+use yii\helpers\ArrayHelper;
 use yii\rest\Controller;
+use yii\web\ForbiddenHttpException;
 
 class RestController extends Controller
 {
     public function behaviors()
     {
-        return \yii\helpers\ArrayHelper::merge(parent::behaviors(), [
+        return ArrayHelper::merge(parent::behaviors(), [
             'access' => [
-                'class' => \yii\filters\AccessControl::className(),
+                'class' => AccessControl::className(),
                 'rules' => [
                     [
                         'allow' => true,
@@ -19,13 +23,20 @@ class RestController extends Controller
                     ],
                 ],
                 'denyCallback' => function ($rule, $action) {
-                    throw new \yii\web\ForbiddenHttpException("Access denied for this action.");
+                    throw new ForbiddenHttpException("Access denied for this action.");
                 }
             ],
             'basicAuth' => [
-                'class' => \yii\filters\auth\HttpHeaderAuth::className(),
+                'class' => HttpHeaderAuth::className(),
                 'header' => 'Authorization',
             ],
         ]);
+    }
+
+    public function renderResult($data = [], $message = null)
+    {
+        $result = [];
+        $result["message"] = $message;
+        return array_merge($result, $data);
     }
 }
