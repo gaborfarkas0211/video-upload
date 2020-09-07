@@ -2,7 +2,7 @@
 
 namespace app\models;
 
-use Yii;
+use yii\helpers\Url;
 
 /**
  * This is the model class for table "video".
@@ -69,5 +69,12 @@ class Video extends \yii\db\ActiveRecord
             $this->quality = json_encode($this->quality);
         }
         return parent::beforeSave($insert);
+    }
+
+    public static function createLink($file) {
+        if(file_exists($file)) {
+            return Url::base('http') . "/$file";
+        }
+        return false;
     }
 }
