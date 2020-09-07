@@ -57,9 +57,10 @@ class VideoController extends RestController
             $fileName = $file->name . '.' . $extension;
             if ($file->saveAs($this->uploadPath . $fileName)) {
                 if ($video->save()) {
-                    return ['id' => $video->id];
+                    Yii::info("The '$fileName' file successfully uploaded to: '$this->uploadPath'.", __METHOD__);
+                    return $this->renderResult(['id' => $video->id]);
                 }
-                self::delete($this->uploadPath . $fileName);
+                Video::deleteFile($this->uploadPath, $fileName, __METHOD__);
             }
         }
         throw new ServerErrorHttpException('The video could not be uploaded.');
