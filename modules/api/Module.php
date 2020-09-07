@@ -28,8 +28,11 @@ class Module extends \yii\base\Module
                     $response = $event->sender;
                     $response->format = \yii\web\Response::FORMAT_JSON;
                     if ($response->data !== null) {
+                        $message = $response->data['message'] ?? null;
+                        unset($response->data['message']);
                         $response->data = [
                             'success' => $response->isSuccessful,
+                            'message' => $message,
                             'data' => $response->data,
                         ];
                     }
