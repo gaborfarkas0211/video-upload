@@ -80,11 +80,4 @@ class VideoController extends RestController
         }
         throw new NotFoundHttpException('The requested Video could not be found.');
     }
-
-    private static function delete($file)
-    {
-        if (file_exists($file)) {
-            unlink($file);
-        }
-    }
 }

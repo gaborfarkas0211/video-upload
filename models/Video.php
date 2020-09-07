@@ -2,6 +2,7 @@
 
 namespace app\models;
 
+use Yii;
 use yii\helpers\Url;
 
 /**
@@ -75,6 +76,23 @@ class Video extends \yii\db\ActiveRecord
         if(file_exists($file)) {
             return Url::base('http') . "/$file";
         }
+        return false;
+    }
+
+    public static function deleteFile($path, $file, $method)
+    {
+        $fullPath = $path . $file;
+        if (file_exists($fullPath)) {
+            try {
+                unlink($fullPath);
+                Yii::info("The '$file' file successfully deleted from '$path'.", $method);
+                return true;
+            } catch (\Exception $e) {
+                Yii::error($e->getMessage(), $method);
+                return false;
+            }
+        }
+        Yii::error("The '$file' not found in '$path'.", $method);
         return false;
     }
 }
