@@ -11,6 +11,9 @@ use yii\web\ForbiddenHttpException;
 
 class RestController extends Controller
 {
+    /**
+     * @return array
+     */
     public function behaviors()
     {
         return ArrayHelper::merge(parent::behaviors(), [
@@ -33,6 +36,11 @@ class RestController extends Controller
         ]);
     }
 
+    /**
+     * @param array $data
+     * @param null $message
+     * @return array
+     */
     public function renderResult($data = [], $message = null)
     {
         $result = [];

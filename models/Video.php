@@ -56,17 +56,28 @@ class Video extends \yii\db\ActiveRecord
         ];
     }
 
+    /**
+     * @param $type
+     * @return bool
+     */
     public static function typeValidation($type)
     {
         return $type == 'video/mp4' || $type == 'video/webm';
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function afterFind()
     {
         $this->quality = json_decode($this->quality, true);
         $this->file = $this->replace();
     }
 
+    /**
+     * @param bool $insert
+     * @return bool
+     */
     public function beforeSave($insert)
     {
         if (!$insert && $this->quality != null) {
@@ -75,6 +86,10 @@ class Video extends \yii\db\ActiveRecord
         return parent::beforeSave($insert);
     }
 
+    /**
+     * @param $file
+     * @return bool|string
+     */
     public static function createLink($file)
     {
         if (file_exists($file)) {
@@ -83,6 +98,12 @@ class Video extends \yii\db\ActiveRecord
         return false;
     }
 
+    /**
+     * @param $path
+     * @param $file
+     * @param $method
+     * @return bool
+     */
     public static function deleteFile($path, $file, $method)
     {
         $fullPath = $path . $file;
@@ -100,6 +121,10 @@ class Video extends \yii\db\ActiveRecord
         return false;
     }
 
+    /**
+     * @param null $quality
+     * @return string
+     */
     public function replace($quality = null)
     {
         $fullName = $this->id;
