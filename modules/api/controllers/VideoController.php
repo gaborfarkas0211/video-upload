@@ -39,6 +39,11 @@ class VideoController extends RestController
         throw new NotFoundHttpException('The requested video could not be found.');
     }
 
+    /**
+     * @return array
+     * @throws BadRequestHttpException
+     * @throws ServerErrorHttpException
+     */
     public function actionUpload()
     {
         if ($file = UploadedFile::getInstanceByName('file')) {
@@ -54,7 +59,7 @@ class VideoController extends RestController
             $video->extension = $extension;
             $video->status = Video::UNDER_PROCESS;
 
-            $fileName = $file->name . '.' . $extension;
+            $fileName = $video->replace();
             if ($file->saveAs($this->uploadPath . $fileName)) {
                 if ($video->save()) {
                     Yii::info("The '$fileName' file successfully uploaded to: '$this->uploadPath'.", __METHOD__);
