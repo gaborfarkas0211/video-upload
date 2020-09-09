@@ -18,7 +18,9 @@ class Video extends \yii\db\ActiveRecord
 
     const UNDER_PROCESS = 0;
     const READY = 1;
-    
+
+    public $file;
+
     /**
      * {@inheritdoc}
      */
@@ -53,7 +55,7 @@ class Video extends \yii\db\ActiveRecord
             'quality' => 'Quality',
         ];
     }
-    
+
     public static function typeValidation($type)
     {
         return $type == 'video/mp4' || $type == 'video/webm';
@@ -62,18 +64,20 @@ class Video extends \yii\db\ActiveRecord
     public function afterFind()
     {
         $this->quality = json_decode($this->quality, true);
+        $this->file = $this->replace();
     }
 
     public function beforeSave($insert)
     {
-        if(!$insert && $this->quality != null) {
+        if (!$insert && $this->quality != null) {
             $this->quality = json_encode($this->quality);
         }
         return parent::beforeSave($insert);
     }
 
-    public static function createLink($file) {
-        if(file_exists($file)) {
+    public static function createLink($file)
+    {
+        if (file_exists($file)) {
             return Url::base('http') . "/$file";
         }
         return false;
@@ -94,5 +98,15 @@ class Video extends \yii\db\ActiveRecord
         }
         Yii::error("The '$file' not found in '$path'.", $method);
         return false;
+    }
+
+    public function replace($quality = null)
+    {
+        $fullName = $this->id;
+        if ($quality) {
+            $fullName .= "_" . $quality;
+        }
+        $fullName .= "." . $this->extension;
+        return $fullName;
     }
 }
