@@ -21,7 +21,14 @@ $config = [
             'targets' => [
                 [
                     'class' => 'yii\log\FileTarget',
-                    'levels' => ['error', 'warning'],
+                    'levels' => ['error', 'warning', 'info'],
+                    'except' => [
+                        'yii\db*',
+                        'yii\web\HttpException:401',
+                        'yii\web\HttpException:404',
+                    ],
+                    'logVars' => [],
+                    'logFile' => '@runtime/logs/console.log'
                 ],
             ],
         ],
