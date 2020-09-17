@@ -18,6 +18,7 @@ class Video extends \yii\db\ActiveRecord
 
     const UNDER_PROCESS = 0;
     const READY = 1;
+    const UNSUCCESSFUL_CONVERT = 2;
 
     public $file;
 
