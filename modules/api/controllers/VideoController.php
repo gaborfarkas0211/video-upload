@@ -28,15 +28,29 @@ class VideoController extends RestController
         return $verbs;
     }
 
-    public function actionIndex($v, int $quality = 720)
+    /**
+     * @param $v
+     * @param int $quality
+     * @return array
+     * @throws NotFoundHttpException
+     */
+    public function actionIndex($v, $quality = 720)
     {
         $video = Video::find()->where(['id' => $v])->one();
         if ($video) {
-            if ($video->status == Video::READY && isset($video->quality[$quality])) {
-                return ["link" => Url::base('http') . "/$this->watchPath" . $video->id . "_$quality" . ".$video->extension"];
+            if ($video->status == Video::READY && isset($video->quality[$quality]) && $video->quality[$quality]["converted"]) {
+                $file = $this->watchPath . $video->replace($quality);
+                if ($link = Video::createLink($file)) {
+                    Yii::info("Status retrieved about '$file'.");
+                    return $this->renderResult(["link" => $link]);
+                }
             }
-            Yii::$app->response->statusCode = 404;
-            return ["link" => Url::base('http') . "/$this->uploadPath" . $video->id . ".$video->extension"];
+            $defaultFile = $this->uploadPath . $video->file;
+            if ($defaultLink = Video::createLink($defaultFile)) {
+                Yii::$app->response->statusCode = 404;
+                Yii::info("Status could not retrieved about '$video->file' in '$quality' quality.");
+                return $this->renderResult(["link" => $defaultLink], "The requested quality was not found for the video.");
+            }
         }
         throw new NotFoundHttpException('The requested video could not be found.');
     }
