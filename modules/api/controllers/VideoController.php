@@ -5,7 +5,6 @@ namespace app\modules\api\controllers;
 use app\models\Video;
 use app\modules\api\components\RestController;
 use Yii;
-use yii\helpers\Url;
 use yii\web\BadRequestHttpException;
 use yii\web\NotFoundHttpException;
 use yii\web\ServerErrorHttpException;
@@ -17,6 +16,9 @@ class VideoController extends RestController
     public $uploadPath = 'uploads/';
     public $watchPath = 'watch/';
 
+    /**
+     * @return array
+     */
     public function verbs()
     {
         $verbs = parent::verbs();
@@ -71,18 +73,31 @@ class VideoController extends RestController
         throw new ServerErrorHttpException('The video could not be uploaded.');
     }
 
+    /**
+     * @param $v
+     * @return array
+     * @throws NotFoundHttpException
+     * @throws ServerErrorHttpException
+     */
     public function actionDelete($v)
     {
         $video = Video::find()->where(['id' => $v])->one();
         if ($video) {
-            foreach ((array) $video->quality as $quality => $value) {
-                if ($value) {
-                    $this->delete($this->watchPath . $video->id . "_$quality" . ".$video->extension");
+            foreach ((array) $video->quality as $quality => $attributes) {
+                if (isset($attributes["converted"]) && $attributes["converted"]) {
+                    Video::deleteFile($this->watchPath, $video->replace($quality), __METHOD__);
                 }
             }
-            $this->delete($this->uploadPath . $video->id . '.' . $video->extension);
-            $video->delete();
-            throw new HttpException(200, 'Video deleted successfully.');
+            if (!$video->delete()) {
+                throw new ServerErrorHttpException("Video could not be deleted.");
+            } else {
+                if(Video::deleteFile($this->uploadPath, $video->file, __METHOD__)) {
+                    return $this->renderResult([], 'Video deleted successfully.');
+                }
+            }
+
+            Yii::$app->response->setStatusCode(404);
+            return $this->renderResult([], 'Video could not be deleted, the file not found.');
         }
         throw new NotFoundHttpException('The requested Video could not be found.');
     }
