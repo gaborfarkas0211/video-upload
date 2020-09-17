@@ -45,6 +45,10 @@ class RestController extends Controller
     {
         $result = [];
         $result["message"] = $message;
-        return array_merge($result, $data);
+        $array = $data;
+        if(is_object($data)) {
+            $array = ArrayHelper::toArray($data);
+        }
+        return ArrayHelper::merge($result, $array);
     }
 }
