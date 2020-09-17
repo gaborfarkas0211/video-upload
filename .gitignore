@@ -1,5 +1,7 @@
 # phpstorm project files
 .idea
+
+# visual studio code project files
 .vscode
 
 # netbeans project files
@@ -32,3 +34,7 @@ tests/_support/_generated
 
 #vagrant folder
 /.vagrant
+
+# uploaded and converted video folder
+web/uploads
+web/watch
