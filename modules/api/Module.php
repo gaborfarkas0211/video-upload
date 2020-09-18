@@ -20,5 +20,24 @@ class Module extends \yii\base\Module
     public function init()
     {
         parent::init();
+
+        Yii::$app->setComponents([
+            'response' => [
+                'class' => 'yii\web\Response',
+                'on beforeSend' => function ($event) {
+                    $response = $event->sender;
+                    $response->format = \yii\web\Response::FORMAT_JSON;
+                    if ($response->data !== null && is_array($response->data)) {
+                        $message = $response->data['message'] ?? null;
+                        unset($response->data['message']);
+                        $response->data = [
+                            'success' => $response->isSuccessful,
+                            'message' => $message,
+                            'data' => $response->data,
+                        ];
+                    }
+                },
+            ],
+        ]);
     }
 }

@@ -7,10 +7,6 @@ $config = [
     'id' => 'basic',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
-    'aliases' => [
-        '@bower' => '@vendor/bower-asset',
-        '@npm'   => '@vendor/npm-asset',
-    ],
     'components' => [
         'request' => [
             'parsers' => [
@@ -24,10 +20,9 @@ $config = [
         ],
         'user' => [
             'identityClass' => 'app\models\User',
-            'enableAutoLogin' => true,
         ],
         'errorHandler' => [
-            'errorAction' => 'site/error',
+            'errorAction' => 'api/site/error',
         ],
         'mailer' => [
             'class' => 'yii\swiftmailer\Mailer',
@@ -41,7 +36,13 @@ $config = [
             'targets' => [
                 [
                     'class' => 'yii\log\FileTarget',
-                    'levels' => ['error', 'warning'],
+                    'levels' => ['error', 'warning', 'info'],
+                    'except' => [
+                        'yii\db*',
+                        'yii\web\HttpException:401',
+                        'yii\web\HttpException:404',
+                    ],
+                    'logVars' => [],
                 ],
             ],
         ],
@@ -53,24 +54,14 @@ $config = [
             'rules' => [
                 [
                     'class' => 'yii\rest\UrlRule',
-                    'controller' => ['api/video', 'api/site']
+                    'controller' => ['api/video']
                 ],
-                ['class' => 'yii\web\UrlRule', 'pattern' => '', 'route' => 'site'],
-                ['class' => 'yii\web\UrlRule', 'pattern' => 'api', 'route' => 'api/site'],
             ],
         ]
     ],
     'modules' => [
         'api' => [
             'class' => 'app\modules\api\Module',
-            'components' => [
-                'response' => [
-                    'class' => 'yii\filters\ContentNegotiator',
-                    'formats' => [
-                        'application/json' => \yii\web\Response::FORMAT_JSON,
-                    ],
-                ]
-            ]
         ]
     ],
     'params' => $params,
