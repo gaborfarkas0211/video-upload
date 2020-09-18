@@ -14,11 +14,11 @@ This is a PHP video uploader project in Yii2 framework.
 - Clone this repo to your local machine using `git clone https://github.com/gaborfarkas0211/video-uploader.git`
 
 ### Setup (on Windows)
-- Install the framework and extensions with `composer install ` command
-- Make a database called `videouploader`
+- Install the framework and extensions with `composer install` command
+- Make a database called `videouploader` or if you want a special database name, change it in `config/db.php`
 - Run command `php yii migrate `
 
-> You can skip the last two steps by import the SQL file from the repository
+> You can skip the last step by import the SQL file from the repository
 
 > Now you have some sample video with converted qualities.
 
@@ -75,12 +75,17 @@ This video uploader has three endpoints to manipulating videos
 ## Commands
 ### Video convert
 You can convert the video to `360p or 720p`. 
+> If you want more quality for convert, you can add it easily in `commands/VideoController.php` 
+
+#### Usage
 - Open a command line
 - Navigate to the `project` folder
 - Run command: `php yii video/convert`
-    > The requested param is a video id
-    
-    > For example `php yii video/convert JjfGDio4mnp`
+
+> It will try to convert all videos in `under process` status.
+> If the convert fail, the number of attempts will increase. After 3 attempts (that you can change like quality) the status will be `unsuccessful convert`.
+
+You can configure it with crontab for automation. If the process is still running, that cycle is skipped.
 
 ## Author
 * Gábor Farkas
