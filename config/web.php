@@ -7,10 +7,6 @@ $config = [
     'id' => 'basic',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
-    'aliases' => [
-        '@bower' => '@vendor/bower-asset',
-        '@npm'   => '@vendor/npm-asset',
-    ],
     'components' => [
         'request' => [
             'parsers' => [
@@ -24,7 +20,6 @@ $config = [
         ],
         'user' => [
             'identityClass' => 'app\models\User',
-            'enableAutoLogin' => true,
         ],
         'errorHandler' => [
             'errorAction' => 'api/site/error',
@@ -59,10 +54,8 @@ $config = [
             'rules' => [
                 [
                     'class' => 'yii\rest\UrlRule',
-                    'controller' => ['api/video', 'api/site']
+                    'controller' => ['api/video']
                 ],
-                ['class' => 'yii\web\UrlRule', 'pattern' => '', 'route' => 'site'],
-                ['class' => 'yii\web\UrlRule', 'pattern' => 'api', 'route' => 'api/site'],
             ],
         ]
     ],
