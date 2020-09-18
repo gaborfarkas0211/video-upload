@@ -22,6 +22,9 @@ class VideoController extends Controller
     const MAX_ATTEMPTS = 3;
     const PROCESS_FILE = 'runtime/logs/process.pid';
 
+    /**
+     * @throws \Throwable
+     */
     public function actionConvert()
     {
         $lockFile = $this->checkProcessRunning();
@@ -82,6 +85,9 @@ class VideoController extends Controller
         $this->unLockFile($lockFile);
     }
 
+    /**
+     * @return bool|resource
+     */
     private function checkProcessRunning()
     {
         $lockFile = fopen(self::PROCESS_FILE, 'c');
@@ -98,6 +104,9 @@ class VideoController extends Controller
         return $lockFile;
     }
 
+    /**
+     * @param $lockFile
+     */
     private function unLockFile($lockFile)
     {
         ftruncate($lockFile, 0);
