@@ -75,7 +75,9 @@ This video uploader has three endpoints to manipulating videos
 ## Commands
 ### Video convert
 You can convert the video to `360p or 720p`. 
-    > If you want more quality for convert, you can add it easily in `commands/VideoController.php` 
+> If you want more quality for convert, you can add it easily in `commands/VideoController.php` 
+
+#### Usage
 - Open a command line
 - Navigate to the `project` folder
 - Run command: `php yii video/convert`
