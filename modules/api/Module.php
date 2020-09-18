@@ -27,7 +27,7 @@ class Module extends \yii\base\Module
                 'on beforeSend' => function ($event) {
                     $response = $event->sender;
                     $response->format = \yii\web\Response::FORMAT_JSON;
-                    if ($response->data !== null) {
+                    if ($response->data !== null && is_array($response->data)) {
                         $message = $response->data['message'] ?? null;
                         unset($response->data['message']);
                         $response->data = [
