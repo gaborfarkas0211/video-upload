@@ -83,7 +83,7 @@ You can convert the video to `360p or 720p`.
 - Run command: `php yii video/convert`
 
 > It will try to convert all videos in `under process` status.
-> If the convert fail, the number of attempts will increase. After 3 attempts (that you cant change like quality) the status will be `unsuccessful convert`.
+> If the convert fail, the number of attempts will increase. After 3 attempts (that you can change like quality) the status will be `unsuccessful convert`.
 
 You can configure it with crontab for automation. If the process is still running, that cycle is skipped.
 
