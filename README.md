@@ -23,6 +23,12 @@ This is a PHP video uploader project in Yii2 framework.
 > Now you have some sample video with converted qualities.
 
 ## Usage
+
+### Authentication
+Basically now you have a `User model` with 2 static user. They have username - password pairs with an access token that you have to use for API.
+For any request you should use these tokens with a header type: `Authorization` for logged in users. Otherwise the response will be `401 - Unauthorized`.
+> For example header: `Authorization: 100-token`. This is the `admin` user's static token.
+
 ### API Url
 The video uploader API URL is on your own server/video-uploader/web/api.
 For example: http://127.0.0.1/video-uploader/web/api/.
