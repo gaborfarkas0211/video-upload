@@ -19,9 +19,11 @@ class RestController extends Controller
         return ArrayHelper::merge(parent::behaviors(), [
             'access' => [
                 'class' => AccessControl::className(),
+                'only' => ['index'],
                 'rules' => [
                     [
                         'allow' => true,
+                        'actions' => ['index'],
                         'ips' => Yii::$app->params['allowedIps'],
                     ],
                 ],
